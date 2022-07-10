@@ -487,3 +487,17 @@ def batch_iter(data, batch_size, num_epochs, shuffle=True):
             start_index = batch_num * batch_size
             end_index = min((batch_num + 1) * batch_size, data_size)
             yield shuffled_data[start_index:end_index]
+
+
+def get_word_index(word_index_file):
+    word2idx = OrderedDict({"_UNK": 0})
+    with open(word_index_file, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+        for index, line in enumerate(lines):
+            word2idx[line.strip()] = index + 1
+    return word2idx
+
+
+if __name__ == '__main__':
+    word_index = get_word_index("../data/id.txt")
+    print(word_index)

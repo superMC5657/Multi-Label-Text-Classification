@@ -20,7 +20,7 @@ from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_sco
 
 args = parser.parameter_parser()
 OPTION = dh._option(pattern=0)
-logger = dh.logger_fn("tflog", "logs/{0}-{1}.log".format('Train' if OPTION == 'T' else 'Restore', time.asctime()))
+logger = dh.logger_fn("tflog", "logs/{0}-{1}.log".format('Train' if OPTION == 'T' else 'Restore', time.time()))
 
 
 def create_input_data(data: dict):
@@ -33,7 +33,11 @@ def train_cnn():
     dh.tab_printer(args, logger)
 
     # Load word2vec model
-    word2idx, embedding_matrix = dh.load_word2vec_matrix(args.word2vec_file)
+    # word2idx, embedding_matrix = dh.load_word2vec_matrix(args.word2vec_file)
+
+    # custom
+    word2idx = dh.get_word_index(args.word_idx_file)
+    embedding_matrix = None
 
     # Load sentences, labels, and training parameters
     logger.info("Loading data...")
@@ -188,7 +192,7 @@ def train_cnn():
 
                     # Predict by topK
                     for top_num in range(args.topK):
-                        batch_predicted_onehot_labels_tk = dh.get_onehot_label_topk(scores=scores, top_num=top_num+1)
+                        batch_predicted_onehot_labels_tk = dh.get_onehot_label_topk(scores=scores, top_num=top_num + 1)
                         for i in batch_predicted_onehot_labels_tk:
                             predicted_onehot_labels_tk[top_num].append(i)
 
@@ -252,7 +256,8 @@ def train_cnn():
                     logger.info("Predict by topK:")
                     for top_num in range(args.topK):
                         logger.info("Top{0}: Precision {1:g}, Recall {2:g}, F1 {3:g}"
-                                    .format(top_num+1, eval_pre_tk[top_num], eval_rec_tk[top_num], eval_F1_tk[top_num]))
+                                    .format(top_num + 1, eval_pre_tk[top_num], eval_rec_tk[top_num],
+                                            eval_F1_tk[top_num]))
                     best_saver.handle(eval_prc, sess, current_step)
                 if current_step % args.checkpoint_steps == 0:
                     checkpoint_prefix = os.path.join(checkpoint_dir, "model")

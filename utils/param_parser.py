@@ -9,9 +9,9 @@ def parameter_parser():
     parser = argparse.ArgumentParser(description="Run MTC Task.")
 
     # Data Parameters
-    parser.add_argument("--train-file", nargs="?", default="../data/Train_sample.json", help="Training data.")
-    parser.add_argument("--validation-file", nargs="?", default="../data/Validation_sample.json", help="Validation data.")
-    parser.add_argument("--test-file", nargs="?", default="../data/Test_sample.json", help="Testing data.")
+    parser.add_argument("--train-file", nargs="?", default="../data/train.json", help="Training data.")
+    parser.add_argument("--validation-file", nargs="?", default="../data/val.json", help="Validation data.")
+    parser.add_argument("--test-file", nargs="?", default="../data/test.json", help="Testing data.")
     parser.add_argument("--metadata-file", nargs="?", default="../data/metadata.tsv",
                         help="Metadata file for embedding visualization.")
     parser.add_argument("--word2vec-file", nargs="?", default="../data/word2vec_100.kv",
@@ -52,4 +52,7 @@ def parameter_parser():
     parser.add_argument("--log-device-placement", type=bool, default=False, help="Log placement of ops on devices.")
     parser.add_argument("--gpu-options-allow-growth", type=bool, default=True, help="Allow gpu options growth.")
 
+
+    # Custom
+    parser.add_argument("--word_idx_file", type=str, default="../data/id.txt", help="custom word2idx")
     return parser.parse_args()
