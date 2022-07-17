@@ -18,7 +18,7 @@ from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_sco
 
 args = parser.parameter_parser()
 MODEL = dh.get_model_name()
-logger = dh.logger_fn("tflog", "logs/Test-{0}.log".format(time.asctime()))
+logger = dh.logger_fn("tflog", "logs/Test-{0}.log".format(time.time()))
 
 CPT_DIR = 'runs/' + MODEL + '/checkpoints/'
 BEST_CPT_DIR = 'runs/' + MODEL + '/bestcheckpoints/'
@@ -35,7 +35,11 @@ def test_crnn():
     dh.tab_printer(args, logger)
 
     # Load word2vec model
-    word2idx, embedding_matrix = dh.load_word2vec_matrix(args.word2vec_file)
+    # word2idx, embedding_matrix = dh.load_word2vec_matrix(args.word2vec_file)
+
+    # custom
+    word2idx = dh.get_word_index(args.word_idx_file)
+    embedding_matrix = None
 
     # Load data
     logger.info("Loading data...")

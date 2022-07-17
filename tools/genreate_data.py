@@ -24,10 +24,14 @@ while True:
     if data and label:
         data_arr = data.strip().split(" ")
         label_arr = label.strip()[1:-1].split(",")
+        label_list = []
+        for i, l in enumerate(label_arr):
+            if l == '1':
+                label_list.append(str(i))
         dic["testid"] = str(index)
         dic["features_content"] = data_arr
-        dic["labels_index"] = label_arr
-        dic["labels_num"] = len(label_arr)
+        dic["labels_index"] = label_list
+        dic["labels_num"] = len(label_list)
         json_str = json.dumps(dic)
         random_value = random.random()
         if random_value <= threshold[0]:

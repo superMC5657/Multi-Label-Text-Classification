@@ -31,7 +31,7 @@ def parameter_parser():
     parser.add_argument("--attention-hops-dim", type=int, default=30, help="Dimensionality of Attention hops.")
     parser.add_argument("--fc-dim", type=int, default=512, help="Dimensionality for FC neurons.")
     parser.add_argument("--dropout-rate", type=float, default=0.5, help="Dropout keep probability.")
-    parser.add_argument("--num-classes", type=int, default=661, help="Total number of labels. (depends on the task)")
+    parser.add_argument("--num-classes", type=int, default=7, help="Total number of labels. (depends on the task)")
     parser.add_argument("--topK", type=int, default=5, help="Number of top K prediction classes.")
     parser.add_argument("--threshold", type=float, default=0.5, help="Threshold for prediction classes.")
 
