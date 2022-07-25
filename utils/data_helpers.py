@@ -202,7 +202,7 @@ def get_onehot_label_topk(scores, top_num=1):
     return predicted_onehot_labels
 
 
-def get_label_threshold(scores, threshold=0.5):
+def get_label_threshold(scores, threshold=0.5, must_have=False):
     """
     Get the predicted labels based on the threshold.
     If there is no predict score greater than threshold, then choose the label which has the max predict score.
@@ -211,6 +211,7 @@ def get_label_threshold(scores, threshold=0.5):
     Args:
         scores: The all classes predicted scores provided by network.
         threshold: The threshold (default: 0.5).
+        must_have: Must there be a label
     Returns:
         predicted_labels: The predicted labels.
         predicted_scores: The predicted scores.
@@ -227,7 +228,7 @@ def get_label_threshold(scores, threshold=0.5):
                 index_list.append(index)
                 score_list.append(predict_score)
                 count += 1
-        if count == 0:
+        if count == 0 and must_have:
             index_list.append(score.index(max(score)))
             score_list.append(max(score))
         predicted_labels.append(index_list)

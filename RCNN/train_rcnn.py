@@ -20,7 +20,7 @@ from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_sco
 
 args = parser.parameter_parser()
 OPTION = dh._option(pattern=0)
-logger = dh.logger_fn("tflog", "logs/{0}-{1}.log".format('Train' if OPTION == 'T' else 'Restore', time.asctime()))
+logger = dh.logger_fn("tflog", "logs/{0}-{1}.log".format('Train' if OPTION == 'T' else 'Restore', time.time()))
 
 
 def create_input_data(data: dict):
@@ -33,7 +33,12 @@ def train_rcnn():
     dh.tab_printer(args, logger)
 
     # Load word2vec model
-    word2idx, embedding_matrix = dh.load_word2vec_matrix(args.word2vec_file)
+    # word2idx, embedding_matrix = dh.load_word2vec_matrix(args.word2vec_file)
+
+    # custom
+    word2idx = dh.get_word_index(args.word_idx_file)
+    embedding_matrix = None
+
 
     # Load sentences, labels, and training parameters
     logger.info("Loading data...")

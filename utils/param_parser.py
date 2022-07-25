@@ -19,7 +19,7 @@ def parameter_parser():
     parser.add_argument("--data-aug", type=bool, default=False, help="Data augmentation or not (default: False).")
 
     # Model Hyperparameters
-    parser.add_argument("--pad-seq-len", type=int, default=150, help="Padding sequence length. (depends on the data)")
+    parser.add_argument("--pad-seq-len", type=int, default=512, help="Padding sequence length. (depends on the data)")
     parser.add_argument("--embedding-type", type=int, default=1, help="The embedding type.")
     parser.add_argument("--embedding-dim", type=int, default=100, help="Dimensionality of character embedding.")
     parser.add_argument("--filter-sizes", type=list, default=[3, 4, 5], help="Filter sizes.")
